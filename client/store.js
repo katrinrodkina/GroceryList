@@ -6,15 +6,16 @@ const initialState = {
 
 const ADD_GROCERY = 'ADD_GROCERY'
 
+let nextId = 0
 export const addGrocery = text => {
   return {
     type: ADD_GROCERY,
-    id: nextId++,
+    id: nextId + 1,
     text
   }
 }
 
-const reducer = (prevState = initialState, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_GROCERY:
       const newGrocery = {
@@ -24,10 +25,14 @@ const reducer = (prevState = initialState, action) => {
       }
       return { ...state, groceries: [...state.groceries, newGrocery] }
     default:
-      return prevState
+      return state
   }
 }
 
 const store = createStore(reducer)
+
+
+store.dispatch(addGrocery("Milk"))
+store.dispatch(addGrocery("Bread"))
 
 export default store
